@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-#include <error.h>
 
 int main(int argc, char *argv[]) {
 	long long i,med;
