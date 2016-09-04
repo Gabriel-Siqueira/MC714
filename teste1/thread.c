@@ -3,84 +3,76 @@
 #include <stdio.h>
 #include <pthread.h>
 
-void* fill(void *arg) {
-		long long beg = *((long long**)arg)[0];
-		long long end = *((long long**)arg)[1];
-		long long *nums = ((long long**)arg)[2];
-		long long i;
-		for(i = beg; i < end; i++) {
-			nums[i] = rand() % 1001;
-		}
-		return NULL;
-}
+typedef struct Arg {
+    long long beg;
+    long long end;
+    long long *nums;
+    long long *med;
+} Arg;
 
-void* sum(void *arg) {
-		long long beg = *((long long**)arg)[0];
+/* aperacoes das threads */
+void* thr_fun(void *arg_) {
+    long long i;
+    Arg *arg = (Arg*) arg_;
 
-		long long end = *((long long**)arg)[1];
-		long long *nums = ((long long**)arg)[2];
-		long long *med = ((long long**)arg)[2];
-		long long i;
+    /* preenche o vetor */
+    for(i = arg->beg; i < arg->end; i++) {
+        arg->nums[i] = rand() % 1001;
+    }
 
-		*med = 0;
-		for(i = beg; i < end; i++) {
-			*med += nums[i];
-		}
-		
-		return NULL;
+    /* soma os valores */
+    *(arg->med) = 0;
+    for(i = arg->beg; i < arg->end; i++) {
+        *(arg->med) += arg->nums[i];
+    }
+    pthread_exit(NULL);
 }
 
 int main(int argc, char *argv[]) {
-	long long i,med,beg,end;
-	long long *arg[4];
-	if(argc == 3) {
-		int N = *argv[1];
-		int K = *argv[2];
-		long long size = N*1048576;
-		long long *nums,*meds;
-		pthread_t **threads;
+    long long i, med;
+    Arg arg;
+    if(argc != 3) {
+        perror("numero errado de argumentos");
+        exit(1);
+    }
+    int N = *argv[1];
+    int K = *argv[2];
+    long long size = N*1024*1024;
+    long long *meds;
+    pthread_t *threads;
 
-		/* aloca memoria */
-		nums = (long long*) malloc(size * sizeof (long long));
-		threads = (pthread_t**) malloc(K * sizeof (pthread_t*));
-		meds = (long long*) malloc(K * sizeof (long long));
+    /* aloca memoria */
+    arg.nums = (long long*) malloc(size * sizeof (long long));
+    threads = (pthread_t*) malloc(K * sizeof (pthread_t));
+    meds = (long long*) malloc(K * sizeof (long long));
 
-		/* preenche vetor */ 
-		srand(time(NULL));
-		for(i = 0; i < K; i++) {
-			beg = i*(size/K);
-			end = (i+1)*(size/K);
-			if(end > size) end = size;
-			arg[0] = &beg;
-			arg[1] = &end;
-			arg[2] = nums;
-			pthread_create(threads[i],NULL,fill,(void*)arg);
-		}
-		for(i = 0; i < K; i++) {
-			pthread_join(*threads[i],NULL);
-		}
-
-		/* calcula e imprime a media */
-		for(i = 0; i < K; i++) {
-			beg = i*(size/K);
-			end = (i+1)*(size/K);
-			if(end > size) end = size;
-			arg[0] = &beg;
-			arg[1] = &end;
-			arg[2] = nums;
-			arg[3] = &(meds[i]);
-			pthread_create(threads[i],NULL,sum,(void*)arg);
-		}
-		for(i = 0; i < K; i++) {
-			pthread_join(*threads[i],NULL);
-		}
-		med = 0;
-		for(i = 0; i < K; i++) {
-				med += meds[i];
-		}
-		med /= size;
-		printf("%lld\n",med);
+    /* cria threads */
+    srand(time(NULL));
+    for(i = 0; i < K; i++) {
+        arg.beg = i*(size/K);
+        arg.end = (i+1)*(size/K);
+        arg.med = (meds + i);
+        if(arg.end > size) arg.end = size;
+        pthread_create(&threads[i],NULL,thr_fun,(void*)&arg);
+    }
+    for(i = 0; i < K; i++) {
+        pthread_join(threads[i],NULL);
     }
 
-	return 0;
+    /* calcula a media */
+    med = 0;
+    for(i = 0; i < K; i++) {
+            med += meds[i];
+    }
+    med /= size;
+    printf("%lld\n",med);
+
+    /* libera memoria */
+    free(arg.nums);
+    free(threads);
+    free(meds);
+
+    pthread_exit(NULL);
+
+    return 0;
 }
