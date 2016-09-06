@@ -41,8 +41,8 @@ int main(int argc, char *argv[]) {
         perror("numero errado de argumentos");
         exit(1);
     }
-    int N = *argv[1];
-    int K = *argv[2];
+    int N = strtol(argv[1],NULL,10);
+    int K = strtol(argv[2],NULL,10);
     long long size = N*1024*1024;
 
     /* aloca memoria e cria area compartilhada */

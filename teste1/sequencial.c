@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
         perror("numero errado de argumentos");
         exit(1);
     }
-    int N = *argv[1];
+    int N = strtol(argv[1],NULL,10);
     long long size = N*1024*1024;
     long long *nums;
 
@@ -28,6 +28,9 @@ int main(int argc, char *argv[]) {
     }
     med /= size;
     printf("%lld\n",med);
+
+    /* libera memoria */
+    free(nums);
 
     return 0;
 }

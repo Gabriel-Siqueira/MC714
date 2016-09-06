@@ -1,3 +1,6 @@
+N=64
+K=4
+
 sequencial: sequencial.c
 	gcc sequencial.c -o sequencial
 
@@ -8,9 +11,9 @@ process: process.c
 	gcc -lrt process.c -o process
 
 test: sequencial thread process
-	eval time ./sequencial 64
-	eval time ./thread 64 4
-	eval time ./process 64 4
+	eval time ./sequencial $(N)
+	eval time ./thread $(N) $(K)
+	eval time ./process $(N) $(K)
 
 run: test
 
