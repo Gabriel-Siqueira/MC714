@@ -1,0 +1,40 @@
+  File: '4.txt'
+  Size: 38832     	Blocks: 80         IO Block: 4096   regular file
+Device: 803h/2051d	Inode: 15991849    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ gabriel)   Gid: (  100/   users)
+Access: 2016-09-25 17:41:16.349965609 -0300
+Modify: 2016-09-25 17:44:31.467507934 -0300
+Change: 2016-09-25 17:44:31.467507934 -0300
+ Birth: -
+  File: '5.txt'
+  Size: 41027     	Blocks: 88         IO Block: 4096   regular file
+Device: 803h/2051d	Inode: 15994785    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ gabriel)   Gid: (  100/   users)
+Access: 2016-09-25 17:53:24.456615044 -0300
+Modify: 2016-09-25 17:55:21.820484588 -0300
+Change: 2016-09-25 17:55:21.820484588 -0300
+ Birth: -
+  File: '6.txt'
+  Size: 41023     	Blocks: 88         IO Block: 4096   regular file
+Device: 803h/2051d	Inode: 15994786    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ gabriel)   Gid: (  100/   users)
+Access: 2016-09-25 17:57:04.824288192 -0300
+Modify: 2016-09-25 17:58:59.224810149 -0300
+Change: 2016-09-25 17:58:59.224810149 -0300
+ Birth: -
+  File: '7.txt'
+  Size: 41097     	Blocks: 88         IO Block: 4096   regular file
+Device: 803h/2051d	Inode: 15994788    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ gabriel)   Gid: (  100/   users)
+Access: 2016-09-25 18:01:04.838699129 -0300
+Modify: 2016-09-25 18:03:10.245900312 -0300
+Change: 2016-09-25 18:03:10.245900312 -0300
+ Birth: -
+  File: '8.txt'
+  Size: 41240     	Blocks: 88         IO Block: 4096   regular file
+Device: 803h/2051d	Inode: 15994789    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ gabriel)   Gid: (  100/   users)
+Access: 2016-09-25 18:04:31.169578928 -0300
+Modify: 2016-09-25 18:06:34.476772266 -0300
+Change: 2016-09-25 18:06:34.476772266 -0300
+ Birth: -
